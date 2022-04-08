@@ -1,25 +1,36 @@
+library(psych)
+
 travel_insurance <- read.csv("travel_insurance.csv", na.strings=c("", "NA"))
 
-netBreaks <- nclass.Sturges(travel_insurance$Net.Sales)
-commissionBreaks <- nclass.Sturges(travel_insurance$Commision..in.value.)
-ageBreaks <- 25
-print(netBreaks)
-print(commissionBreaks)
-print(ageBreaks)
-range(travel_insurance$Age)
-
-h1 <- hist(travel_insurance$Net.Sales, plot = FALSE)
-h1$breaks
-
-netGroups <- cut(travel_insurance$Net.Sales, seq(-389, 810, l = netBreaks))
-commissionGroups <- cut(travel_insurance$Commision..in.value., seq(0, 283.5, l = commissionBreaks))
-ageGroups <- cut(travel_insurance$Age, seq(0, 120, l = ageBreaks))
+netGroups <- cut(travel_insurance$Net.Sales, seq(-400, 900, l = 14))
+commissionGroups <- cut(travel_insurance$Commision..in.value., seq(0, 300, l = 16))
+ageGroups <- cut(travel_insurance$Age, seq(0, 120, l = 25))
 
 #freq abs
-netFA <- table(netGroups)
-commFA <- table(commissionGroups)
-ageFA <- table(ageGroups)
+netAbs <- table(netGroups)
+commAbs <- table(commissionGroups)
+ageAbs <- table(ageGroups)
+agencyAbs <- table(travel_insurance$Agency)
+destinationAbs <- table(travel_insurance$Destination)
+productAbs <-  table(travel_insurance$Product.Name)
 
-print(netFA)
-print(commFA)
-print(ageFA)
+netRel <- prop.table(netAbs)
+commRel <- prop.table(commAbs)
+ageRel <- prop.table(ageAbs)
+agencyRel <- prop.table(agencyAbs)
+destinationRel <- prop.table(destinationAbs)
+productRel <- prop.table(productNameAbs)
+
+net <- cbind("Frequência Absoluta" = netAbs, "Frequência Relativa" = netRel, "Frequência Relativa %" = netRel*100, "Frequência Abs. Acumulada" = cumsum(netRel), "Frequência Rel.% Acumulada" = cumsum(netRel*100))
+comm <- cbind("Frequência Absoluta" = commAbs, "Frequência Relativa" = commRel, "Frequência Relativa %" = commRel*100, "Frequência Abs. Acumulada" = cumsum(commRel), "Frequência Rel.% Acumulada" = cumsum(commRel*100))
+age <- cbind("Frequência Absoluta" = ageAbs, "Frequência Relativa" = ageRel, "Frequência Relativa %" = ageRel*100, "Frequência Abs. Acumulada" = cumsum(ageRel), "Frequência Rel.% Acumulada" = cumsum(ageRel*100))
+agency <- cbind("Frequência Absoluta" = agencyAbs, "Frequência Relativa" = agencyRel, "Frequência Relativa %" = agencyRel*100, "Frequência Abs. Acumulada" = cumsum(agencyRel), "Frequência Rel.% Acumulada" = cumsum(agencyRel*100))
+destination <- cbind("Frequência Absoluta" = destinationAbs, "Frequência Relativa" = destinationRel, "Frequência Relativa %" = destinationRel*100, "Frequência Abs. Acumulada" = cumsum(destinationRel), "Frequência Rel.% Acumulada" = cumsum(destinationRel*100))
+product <- cbind("Frequência Absoluta" = productAbs, "Frequência Relativa" = productRel, "Frequência Relativa %" = productRel*100, "Frequência Abs. Acumulada" = cumsum(productRel), "Frequência Rel.% Acumulada" = cumsum(productRel*100))
+
+View(net)
+View(comm)
+View(age)
+View(agency)
+View(destination)
+View(product)
