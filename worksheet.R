@@ -1,3 +1,5 @@
+if (!require(psych))
+        install.packages("psych")
 library(psych)
 
 travel_insurance <- read.csv("travel_insurance.csv", na.strings=c("", "NA"))
@@ -45,6 +47,7 @@ summary(travel_insurance$Agency)
 summary(travel_insurance$Destination)
 summary(travel_insurance$Product.Name)
 summary(travel_insurance$Claim)
+summary(travel_insurance$Age)
 
 
 boxplot(travel_insurance$Age,
@@ -76,5 +79,56 @@ boxplot(travel_insurance$Net.Sales ~ travel_insurance$Claim,
         main = "Diagrama de extremos e quartis Vendas Líq./Seguro Acionado",
         ylab = "Vendas Líquidas",
         xlab = "Seguro Acionado",
-        col = c("#c8ade6"),
+        col = c("#c8ade6")
+)
+
+describe(travel_insurance$Net.Sales)
+describe(travel_insurance$Commision..in.value.)
+describe(travel_insurance$Age)
+
+describeBy(travel_insurance$Net.Sales, group = travel_insurance$Claim, mat = TRUE, digits = 2)
+describeBy(travel_insurance$Net.Sales, group = travel_insurance$Agency, mat = TRUE, digits = 2)
+describeBy(travel_insurance$Net.Sales, group = ageGroups, mat = TRUE, digits = 2)
+describeBy(travel_insurance$Net.Sales, group = travel_insurance$Destination, mat = TRUE, digits = 2)
+describeBy(travel_insurance$Net.Sales, group = travel_insurance$Product.Name, mat = TRUE, digits = 2)
+describeBy(travel_insurance$Net.Sales, group = commissionGroups, mat = TRUE, digits = 2)
+describeBy(travel_insurance$Commision..in.value., group = travel_insurance$Claim, mat = TRUE, digits = 2)
+describeBy(travel_insurance$Commision..in.value., group = travel_insurance$Agency, mat = TRUE, digits = 2)
+describeBy(travel_insurance$Commision..in.value., group = ageGroups, mat = TRUE, digits = 2)
+describeBy(travel_insurance$Commision..in.value., group = travel_insurance$Destination, mat = TRUE, digits = 2)
+describeBy(travel_insurance$Commision..in.value., group = travel_insurance$Product.Name, mat = TRUE, digits = 2)
+describeBy(travel_insurance$Commision..in.value., group = netGroups, mat = TRUE, digits = 2)
+
+hist(travel_insurance$Age,
+        main = "Histograma Idade",
+        xlab = "Idade",
+        ylab = "Total Clientes",
+        ylim = c(0, 30000),
+        col = c("#c8ade6")
+)
+
+hist(travel_insurance$Commision..in.value.,
+        main = "Histograma valor de comissões",
+        xlab = "Valor de Comissão",
+        ylab = "Total de vendas",
+        ylim = c(0, 60000),
+        col = c("#c8ade6")
+)
+
+hist(travel_insurance$Net.Sales,
+        main = "Histograma de vendas líquidas",
+        xlab = "Vendas em líquido",
+        ylab = "Total de vendas",
+        ylim = c(0, 60000),
+        col = c("#c8ade6")
+        )
+
+default_margins <- par("mar")
+margins <- default_margins + c(11.5, 0, 0, 0)
+par(mar = margins) 
+barplot(productAbs,
+        main = "Gráfico de barras total de Produtos",
+        ylab = "Total de Produtos",
+        las = 2,
+        col = c("#c8ade6")
 )
