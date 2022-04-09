@@ -73,7 +73,7 @@ boxplot(travel_insurance$Net.Sales ~ travel_insurance$Agency,
 
 boxplot(travel_insurance$Net.Sales ~ travel_insurance$Claim,
         outline = FALSE,
-        main = "Diagrama de extremos e quartis Idade",
+        main = "Diagrama de extremos e quartis Vendas Líq./Seguro Acionado",
         ylab = "Vendas Líquidas",
         xlab = "Seguro Acionado",
         col = c("#c8ade6"),
