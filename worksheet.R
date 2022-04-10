@@ -64,6 +64,20 @@ boxplot(travel_insurance$Age,
         col = c("#c8ade6")
 )
 
+boxplot(travel_insurance$Net.Sales,
+        outline = FALSE,
+        main = "Diagrama de extremos e quartis Vendas Líquidas",
+        ylab = "Vendas Líquidas",
+        col = c("#c8ade6")
+)
+
+boxplot(travel_insurance$Commision..in.value.,
+        outline = FALSE,
+        main = "Diagrama de extremos e quartis Comissões",
+        ylab = "Total em comissões",
+        col = c("#c8ade6")
+)
+
 boxplot(travel_insurance$Age ~ travel_insurance$Claim,
         outline = FALSE,
         main = "Diagrama de extremos e quartis Idade/Seguro Acionado",
@@ -89,9 +103,13 @@ boxplot(travel_insurance$Net.Sales ~ travel_insurance$Claim,
         col = c("#c8ade6")
 )
 
+
 describe(travel_insurance$Net.Sales)
+var(travel_insurance$Net.Sales)
 describe(travel_insurance$Commision..in.value.)
+var(travel_insurance$Commision..in.value.)
 describe(travel_insurance$Age)
+var(travel_insurance$Age)
 
 describeBy(travel_insurance$Net.Sales, group = travel_insurance$Claim, mat = TRUE, digits = 2)
 describeBy(travel_insurance$Net.Sales, group = travel_insurance$Agency, mat = TRUE, digits = 2)
@@ -133,6 +151,7 @@ hist(travel_insurance$Net.Sales,
 default_margins <- par("mar")
 margins <- default_margins + c(11.5, 0, 0, 0)
 par(mar = margins)
+par(mfrow = c(1,1))
 
 barplot(productAbs,
         main = "Gráfico de barras total de Produtos",
@@ -145,10 +164,20 @@ par(mar = default_margins)
 
 pieRel <- subset(destinationRel, destinationRel > 0.035)
 
+
+
 pie(pieRel,
         labels = paste0(round(100 * pieRel, 2), "%"),
         main = "10 destinos mais frequentes",
         clockwise = TRUE,
         col = rainbow(10)
 )
-legend("bottomleft", legend = c("Australia", "China", "Hong Kong", "India", "Indonesia", "Malaysia", "Philippines", "Singapore", "Thailand", "United States"), fill = rainbow(10))
+legend("bottomleft", inset = c(-0.17, -0.2), bty = "n", legend = c("Australia", "China", "Hong Kong", "India", "Indonesia", "Malaysia", "Philippines", "Singapore", "Thailand", "United States"), y.intersp = 2, xpd = TRUE, fill = rainbow(10))
+
+barplot(claimAbs,
+        main = "Seguros acionados",
+        ylab = "Total de seguros acionados",
+        xlab = "Acionado?",
+        col = c("#c8ade6")
+)
+
