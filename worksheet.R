@@ -19,9 +19,6 @@ claimAbs <- table(travel_insurance$Claim)
 
 subset(destinationAbs, destinationAbs > 100)
 
-print(destinationAbs)
-
-
 netRel <- prop.table(netAbs)
 commRel <- prop.table(commAbs)
 ageRel <- prop.table(ageAbs)
@@ -29,8 +26,6 @@ agencyRel <- prop.table(agencyAbs)
 destinationRel <- prop.table(destinationAbs)
 productRel <- prop.table(productAbs)
 claimRel <- prop.table(claimAbs)
-
-colnames(destination)
 
 net <- cbind("Frequência Absoluta" = netAbs, "Frequência Relativa" = netRel, "Frequência Relativa %" = netRel*100, "Frequência Abs. Acumulada" = cumsum(netAbs), "Frequência Rel.% Acumulada" = cumsum(netRel*100))
 comm <- cbind("Frequência Absoluta" = commAbs, "Frequência Relativa" = commRel, "Frequência Relativa %" = commRel*100, "Frequência Abs. Acumulada" = cumsum(commAbs), "Frequência Rel.% Acumulada" = cumsum(commRel*100))
@@ -47,6 +42,18 @@ View(agency)
 View(destination)
 View(product)
 View(claim)
+
+options(digits = 2)
+
+write.table(net, file = "net.txt", sep = ";")
+write.table(comm, file = "comm.txt", sep = ";")
+write.table(age, file = "age.txt", sep = ";")
+write.table(agency, file = "agency.txt", sep = ";")
+write.table(destination, file = "destination.txt", sep = ";")
+write.table(product, file = "product.txt", sep = ";")
+write.table(claim, file = "claim.txt", sep = ";")
+
+
 
 summary(travel_insurance$Net.Sales)
 summary(travel_insurance$Commision..in.value.)
@@ -180,4 +187,3 @@ barplot(claimAbs,
         xlab = "Acionado?",
         col = c("#c8ade6")
 )
-
